@@ -1,4 +1,5 @@
 import Fuse from 'fuse.js'
+import Unidecode from 'unidecode'
 
 function flatten (array) {
   return array.reduce((flat, toFlatten) => (
@@ -39,7 +40,7 @@ export function getValuesForKey (key, item) {
   return results.filter(r => typeof r === 'string' || typeof r === 'number')
 }
 
-export function searchStrings (strings, term, {caseSensitive, fuzzy, sortResults, exactMatch} = {}) {
+export function searchStrings (strings, term, {caseSensitive, fuzzy, unidecode, sortResults, exactMatch} = {}) {
   strings = strings.map(e => e.toString())
 
   try {
@@ -57,6 +58,10 @@ export function searchStrings (strings, term, {caseSensitive, fuzzy, sortResults
       try {
         if (!caseSensitive) {
           value = value.toLowerCase()
+        }
+        if (unidecode) {
+          value = Unidecode(value)
+          console.log('value', value)
         }
         if (exactMatch) {
           term = new RegExp('^' + term + '$', 'i')
@@ -80,6 +85,11 @@ export function createFilter (term, keys, options = {}) {
 
     if (!options.caseSensitive) {
       term = term.toLowerCase()
+    }
+
+    if (options.unidecode) {
+      term = Unidecode(term)
+      console.log('term', term)
     }
 
     const terms = term.split(' ')

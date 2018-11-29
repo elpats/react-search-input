@@ -36,6 +36,7 @@ class Search extends Component {
       filterKeys,
       value,
       fuzzy,
+      unidecode,
       inputClassName,
       ...inputProps
     } = this.props // eslint-disable-line no-unused-vars
@@ -71,10 +72,11 @@ class Search extends Component {
   }
 
   filter (keys) {
-    const {filterKeys, caseSensitive, fuzzy, sortResults} = this.props
+    const {filterKeys, caseSensitive, fuzzy, unidecode, sortResults} = this.props
     return createFilter(this.state.searchTerm, keys || filterKeys, {
       caseSensitive,
       fuzzy,
+      unidecode,
       sortResults
     })
   }
@@ -85,6 +87,7 @@ Search.defaultProps = {
   onChange () {},
   caseSensitive: false,
   fuzzy: false,
+  unidecode: false,
   throttle: 200
 }
 
@@ -95,6 +98,7 @@ Search.propTypes = {
   caseSensitive: PropTypes.bool,
   sortResults: PropTypes.bool,
   fuzzy: PropTypes.bool,
+  unidecode: PropTypes.bool,
   throttle: PropTypes.number,
   filterKeys: PropTypes.oneOf([
     PropTypes.string,
