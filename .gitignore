@@ -7,3 +7,4 @@ example/app.bundle.js
 /lib
 coverage
 .vscode/
+.DS_STORE
