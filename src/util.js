@@ -61,7 +61,6 @@ export function searchStrings (strings, term, {caseSensitive, fuzzy, unidecode, 
         }
         if (unidecode) {
           value = Unidecode(value)
-          console.log('value', value)
         }
         if (exactMatch) {
           term = new RegExp('^' + term + '$', 'i')
@@ -89,7 +88,6 @@ export function createFilter (term, keys, options = {}) {
 
     if (options.unidecode) {
       term = Unidecode(term)
-      console.log('term', term)
     }
 
     const terms = term.split(' ')
